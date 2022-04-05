@@ -37,12 +37,7 @@ M.start = function (config)
       autostart = true,
       on_init = function(client, _)
          vim.lsp.buf_attach_client(0, client.id)
-	 vim.api.nvim_command([[autocmd BufEnter * lua require('copilot.copilot_handler')._on_init(]] + client.id + ")")
-         --[[ vim.api.nvim_create_autocmd({'BufEnter'}, {
-            callback = function ()
-            end,
-            once = false,
-         }) ]]
+	 vim.api.nvim_command([[autocmd BufEnter * lua require('copilot.copilot_handler')._on_init(]] .. client.id .. ")")
       end,
       on_attach = function()
          send_editor_info()
@@ -51,9 +46,10 @@ M.start = function (config)
 end
 
 M._on_init = function(client_id)
-    -- if not vim.lsp.buf_get_clients(0)[client_id] then
-    vim.lsp.buf_attach_client(0, client_id)
-    -- end
+    print(client_id)
+    if not vim.lsp.buf_get_clients(0)[client_id] then
+	vim.lsp.buf_attach_client(0, client_id)
+    end
 end
 
 return M
