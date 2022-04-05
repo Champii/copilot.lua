@@ -51,9 +51,9 @@ M.start = function (config)
 end
 
 M._on_init = function(client_id)
-    if not vim.lsp.buf_get_clients(0)[client_id] then
-	vim.lsp.buf_attach_client(0, client_id)
-    end
+    -- if not vim.lsp.buf_get_clients(0)[client_id] then
+    vim.lsp.buf_attach_client(0, client_id)
+    -- end
 end
 
 return M
