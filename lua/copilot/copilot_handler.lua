@@ -26,6 +26,7 @@ M.start = function (config)
          ["GITHUB_TOKEN"] = user_data.token,
          ["COPILOT_AGENT_VERBOSE"] = 1,
       },
+      filetypes = { "rust" },
       handlers={
          ["getCompletions"] = function () print("get completions") end,
          ["textDocumentSync"] = function () print("handle") end,
