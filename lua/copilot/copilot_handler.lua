@@ -18,9 +18,9 @@ end
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.getCompletions = true
 
-M.start = function (plugin_path)
+M.start = function (config)
    vim.lsp.start_client({
-      cmd = {require('copilot.util').get_copilot_path(plugin_path)},
+      cmd = {require('copilot.util').get_copilot_path(config)},
       cmd_env = {
          ["GITHUB_USER"] = user_data.user,
          ["GITHUB_TOKEN"] = user_data.token,
