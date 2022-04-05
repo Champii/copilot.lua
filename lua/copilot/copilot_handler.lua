@@ -9,7 +9,7 @@ local send_editor_info = function (a, b, c, d)
          version = '1.1.0',
       },
       editorInfo= {
-         version = '0.7.0-dev+1343-g4d3acd6be-dirty',
+         version = '0.6.1',
          name = "Neovim",
       },
    }, 600)
@@ -36,19 +36,23 @@ M.start = function (config)
       autostart = true,
       on_init = function(client, _)
          vim.lsp.buf_attach_client(0, client.id)
-         vim.api.nvim_create_autocmd({'BufEnter'}, {
+	 vim.api.nvim_command[[autocmd BufEnter * lua require('copilot.copilot_handler')._on_init(client)]]
+         --[[ vim.api.nvim_create_autocmd({'BufEnter'}, {
             callback = function ()
-               if not vim.lsp.buf_get_clients(0)[client.id] then
-                  vim.lsp.buf_attach_client(0, client.id)
-               end
             end,
             once = false,
-         })
+         }) ]]
       end,
       on_attach = function()
          send_editor_info()
       end
    })
+end
+
+M._on_init = function(client)
+    if not vim.lsp.buf_get_clients(0)[client.id] then
+	vim.lsp.buf_attach_client(0, client.id)
+    end
 end
 
 return M
