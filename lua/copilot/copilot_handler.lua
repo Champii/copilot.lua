@@ -26,6 +26,7 @@ M.merge_server_opts = function (params)
     cmd = { "node", require("copilot.util").get_copilot_path(params.plugin_manager_path) },
     name = "copilot",
     trace = "messages",
+    filetypes = { "*" },
     root_dir = vim.loop.cwd(),
     autostart = true,
     on_init = function(_, _)
